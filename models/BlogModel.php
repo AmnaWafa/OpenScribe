@@ -7,7 +7,19 @@ class BlogModel {
     public function __construct() {
         $this->mysqli = $GLOBALS['mysqli'];
     }
-
+    public function getBlogById($blogId) {
+        $stmt = $this->mysqli->prepare("
+            SELECT bd.*, b.id, b.title, b.username, b.created_at, b.status, u.username
+            FROM blog_detail bd
+            LEFT JOIN blog b ON bd.id = b.id
+            LEFT JOIN users u ON b.username = u.username
+            WHERE b.id = ?
+        ");
+        $stmt->bind_param("i", $blogId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
     public function getAllBlogs(){
         $query = "
             SELECT 
@@ -68,6 +80,5 @@ class BlogModel {
             return false; // Deletion failed
         }
     }
-    
 }
 ?>

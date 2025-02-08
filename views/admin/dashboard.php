@@ -56,21 +56,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['blog_id'])) {
     <div class="blog-container col-md-4">
     <?php if (!empty($blogs) && is_array($blogs)): ?>
         <?php foreach ($blogs as $blog): ?>
+            <a href="../../logic/view-blog.php?id=<?php echo urlencode($blog['id']); ?>">
             <div class="blog-card card card-body">
                 <p><?php echo htmlspecialchars($blog['username']); ?></p>
-                <h3 class="card-title"><?php echo nl2br(htmlspecialchars($blog['description'])); ?></h3>
+                <h3 class="card-title"><?php echo nl2br(htmlspecialchars($blog['title'])); ?></h3>
                 <p class="timestamp"><?php echo date("F j, Y, g:i a", strtotime($blog['created_at'])); ?></p>
                 <form method="POST" onsubmit="return confirmDelete();">
-                <input type="hidden" name="blog_id" value="<?= htmlspecialchars($blog['id']) ?>">
-                <button type="submit" class="delete-btn">Delete</button>
-            </form>
+                    <input type="hidden" name="blog_id" value="<?= htmlspecialchars($blog['id']) ?>">
+                    <button type="submit" class="delete-btn">Delete</button>
+                </form>
             </div>
+            </a>
         <?php endforeach; ?>
     <?php else: ?>
         <p>No blogs found.</p>
     <?php endif; ?>
 </div>
 </div>
+<script>
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete this blog?");
+        }
+</script>
 <?php
 include_once '../../components/guest-footer.php';
 ?>
