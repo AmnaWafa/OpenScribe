@@ -1,5 +1,5 @@
 <?php
-include_once '../../config.php';
+// include_once '../../config.php';
 
 class UserModel {
     private $mysqli;
@@ -8,13 +8,13 @@ class UserModel {
         $this->mysqli = $GLOBALS['mysqli'];
     }
 
-    public function getUserId($userId) {
+    public function getUserId($username) {
         $stmt = $this->mysqli->prepare("
             SELECT id 
             FROM users 
-            WHERE id = ?
+            WHERE username = ?
         ");
-        $stmt->bind_param("i", $userId);
+        $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();

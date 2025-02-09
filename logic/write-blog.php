@@ -1,4 +1,5 @@
 <?php
+include_once '../components/user-header.php';
 session_start();
 $userId = $_SESSION['user_id'] ?? null;
 if (!$userId) {
@@ -17,6 +18,18 @@ if (!$userId) {
   <title>Write Blog</title>
 </head>
 <body>
+
+<?php 
+if (isset($_GET['failed_blog']) && $_GET['failed_blog'] === 'true') {
+    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+ <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button>
+</div>';
+}
+?>
+
   <h1>Write Your Blog</h1>
   <form action='save-blog.php?id=<?php echo urlencode($userId);?>' method="POST">
     <label for="title">Title:</label>

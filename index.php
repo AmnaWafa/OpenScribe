@@ -4,7 +4,7 @@ function redirect($url) {
     exit();
 }
 session_start();
-include_once 'config.php';
+// include_once 'config.php';
 
 if (isset($_SESSION['role'])) {
     switch ($_SESSION['role']) {
@@ -16,4 +16,6 @@ if (isset($_SESSION['role'])) {
             break;
     }
 }
-redirect('/blog-app/views/guest/home.php');
+else{
+    redirect('/blog-app/views/guest/home.php');
+}

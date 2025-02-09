@@ -1,7 +1,10 @@
 <?php 
 include_once '../config.php';
 session_start();
-
+function redirect($url) {
+    header("Location: $url");
+    exit();
+}
 // Ensure the user is logged in
 $userId = $_SESSION['user_id'] ?? null;
 if (!$userId) {
@@ -40,9 +43,12 @@ $query = "INSERT INTO blog_detail (id, content) VALUES (?, ?)";
 $stmt1 = $mysqli->prepare($query);
 $stmt1->bind_param("is", $blog_id, $content);
 if ($stmt1->execute()) {
-    echo "Blog saved successfully! <a href='view-blog.php?id=" . $blog_id . "'>View Blog</a>";
+    // echo "Blog saved successfully! <a href='view-blog.php?id=" . $blog_id . "'>View Blog</a>";
+    redirect('/blog-app/logic/view-blog.php?id='. $blog_id . '&blog_created=true');
+
 } else {
-    echo "Error: " . $stmt1->error;
+    redirect('/blog-app/logic/write-blog.php?failed=true');
+
 }
 $stmt1->close();
 ?>

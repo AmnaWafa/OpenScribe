@@ -1,0 +1,146 @@
+body {
+    background-color: #f9fafb;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #212529;
+    line-height: 1.6;
+}
+
+.navbar{
+    padding: 10px;
+    background-color: #1E3A8A;
+}
+
+.navbar a{
+    color: #F9FAFB;
+
+}
+.logo{
+    border-radius: 50%;
+}
+.main-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #F9FAFB;
+    color: #1E3A8A;
+    text-align: center;
+    padding: 2rem;
+
+}
+
+.container1 {
+    background-color: #ffffff;
+    padding: 2.5rem;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-top: #163375 solid 1px;
+}
+
+.dashboard-container {
+    max-width: 1200px;
+    padding: 0.5rem;
+}
+
+h1, h2, h3 {
+    color: #163375;
+    font-weight: 700;
+}
+
+p, li {
+    font-size: 1rem;
+}
+
+ul, ol {
+    padding-left: 1.5rem;
+}
+
+.btn-primary {
+    background-color: #163375;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #163375;
+    transform: translateY(-2px);
+}
+
+.cta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+span {
+    font-weight: 600;
+    color: #495057;
+}
+
+.welcome-message {
+    background-color: #1E3A8A;
+    color: #fff;
+    padding: 1.5rem;
+    width: 100%;
+    border-radius: 0.75rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.blog-container {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.blog-card {
+    background: #ffffff;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+}
+
+.delete-btn {
+    background-color: #e3342f;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background-color: #cc1f1a;
+}
+
+.timestamp {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+footer{
+    background-color: #163375;
+    color:#495057 ;
+}
+
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .cta {
+        flex-direction: column;
+    }
+}

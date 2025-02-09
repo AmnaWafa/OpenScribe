@@ -6,6 +6,7 @@ include_once '../../models/BlogModel.php';
 session_start();
 
 $userId = $_SESSION['user_id'] ?? null;
+
 if (!$userId) {
     header('Location: ../guest/login.php');
     exit;
@@ -32,15 +33,19 @@ $userDrafts = $userModel->getPendingBlogs($username);
 
 include_once '../../components/user-header.php';
 ?>
-<div>
-    <h2>Welcome <?php echo htmlspecialchars($username);?>!</h2>  
-    <a href="../../logic/write-blog.php"><button>Write a blog</button></a>
+<div class="dashboard-container">
+<div class="w-100 d-flex py-2 justify-content-between">
+    <h2 class="">Welcome <?php echo htmlspecialchars($username);?>!</h2>  
+    <a href="../../logic/write-blog.php"><button class="btn btn-primary">Write a blog</button></a>
 </div>
+<div class="blog-container">
+<div class="d-flex flex-column px-4 py-2 card bg-light">
+
 <h3>Your Published Blogs</h3>
-    <div class="blog-container col-md-4">
+    <div class="blog-container">
     <?php if (!empty($userBlogs) && is_array($userBlogs)): ?>
         <?php foreach ($userBlogs as $userBlog): ?>
-            <a href="../../logic/view-blog.php?id=<?php echo urlencode($userBlog['id']); ?>">
+            <a href="../../logic/view-blog.php?id=<?php echo urlencode($userBlog['id']); ?>" class="text-decoration-none  w-100">
                 <div class="blog-card card card-body">
                     <p><?php echo htmlspecialchars($userBlog['username']); ?></p>
                     <h3 class="card-title"><?php echo nl2br(htmlspecialchars($userBlog['title'])); ?></h3>
@@ -56,11 +61,13 @@ include_once '../../components/user-header.php';
         <p>No blogs found.</p>
     <?php endif; ?>
 </div>
+    </div>
+    <div class="d-flex flex-column px-4 py-2 bg-light card">
 <h3>Your Drafts</h3>
-<div class="blog-container col-md-4">
+<div class="blog-container ">
     <?php if (!empty($userDrafts) && is_array($userDrafts)): ?>
         <?php foreach ($userDrafts as $userDraft): ?>
-            <a href="../../logic/view-blog.php?id=<?php echo urlencode($userDraft['id']); ?>">
+            <a href="../../logic/view-blog.php?id=<?php echo urlencode($userDraft['id']); ?>" class="text-decoration-none">
                 <div class="blog-card card card-body">
                     <p><?php echo htmlspecialchars($userDraft['username']); ?></p>
                     <h3 class="card-title"><?php echo nl2br(htmlspecialchars($userDraft['title'])); ?></h3>
@@ -76,11 +83,13 @@ include_once '../../components/user-header.php';
         <p>No blogs found.</p>
     <?php endif; ?>
 </div>
-<h3>Community</h3>
-<div class="blog-container col-md-4">
+    </div>
+    </div>
+<h3 class="text-center">Community</h3>
+<div class="blog-container col-md-4 d-flex justify-content-center w-100 flex-wrap">
     <?php if (!empty($blogs) && is_array($blogs)): ?>
         <?php foreach ($blogs as $blog): ?>
-            <a href="../../logic/view-blog.php?id=<?php echo urlencode($blog['id']); ?>">
+            <a href="../../logic/view-blog.php?id=<?php echo urlencode($blog['id']); ?>" class="flex-fill text-decoration-none">
                 <div class="blog-card card card-body">
                     <p><?php echo htmlspecialchars($blog['username']); ?></p>
                     <h3 class="card-title"><?php echo nl2br(htmlspecialchars($blog['title'])); ?></h3>
@@ -91,6 +100,7 @@ include_once '../../components/user-header.php';
     <?php else: ?>
         <p>No blogs found.</p>
     <?php endif; ?>
+</div>
 </div>
 <script>
         function confirmDelete() {

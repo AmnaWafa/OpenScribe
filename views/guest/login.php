@@ -1,9 +1,13 @@
 
 <?php 
+    include_once '../../config.php';
     include_once '../../models/AuthModel.php';
+    include_once '../../models/UserModel.php';
     include_once '../../components/guest-header.php';
     session_start();
-    $authModel = new AuthModel();
+    $authModel = new AuthModel(); 
+    $userModel = new UserModel();
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -11,15 +15,26 @@
             header('Location: login.php?error=Please%20fill%20in%20all%20fields');
             exit;
         }
+        $user_id = $userModel->getUserID($username);
         if($username==='admin' || $username==='Admin'){
             $role = 'admin'; 
-            $username = $authModel->login($username, $password);
-            header('Location: ../admin/manage-users.php');
+            $user = $authModel->login($username, $password);
+            if($user){
+                $_SESSION['user_id'] = $user_id;
+                $_SESSION['role'] = $role;
+                header('Location:../admin/dashboard.php');
+            }
         }
         else{
             $role = 'user'; 
-            $username = $authModel->login($username, $password);
-            header('Location: ../user/dashboard.php');
+            $user = $authModel->login($username, $password);
+            if($user){
+                $_SESSION['user_id'] = $user_id;
+                $_SESSION['role'] = $role;
+
+                header('Location:../user/dashboard.php');
+            }
+         
         }
     }
     ?>
@@ -34,7 +49,7 @@
                 <label for="password">Password:</label>
                 <input type="password" name="password" id="password" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-dark my-2">Login</button>
+            <button type="submit" class="btn btn-primary my-2">Login</button>
         </form>
     </div>
     <?php

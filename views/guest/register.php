@@ -1,5 +1,7 @@
 
 <?php 
+    include_once '../../config.php';
+
     include_once '../../models/AuthModel.php';
     include_once '../../components/guest-header.php';
     session_start();
@@ -39,7 +41,7 @@
                 <label for="password">Password:</label>
                 <input type="password" name="password" id="password" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-dark my-2">Register</button>
+            <button type="submit" class="btn btn-primary my-2">Register</button>
         </form>
     </div>
     <?php
