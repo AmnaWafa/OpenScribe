@@ -22,24 +22,29 @@ if (!$userId) {
 <?php 
 if (isset($_GET['failed_blog']) && $_GET['failed_blog'] === 'true') {
     echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-  <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+  <strong>Holy guacamole!</strong> Looks like we could not save your draft.
  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
   <span aria-hidden="true">&times;</span>
 </button>
 </div>';
 }
 ?>
-
-  <h1>Write Your Blog</h1>
+<div class="container mt-5">
+<h1>Write Your Blog</h1>
   <form action='save-blog.php?id=<?php echo urlencode($userId);?>' method="POST">
-    <label for="title">Title:</label>
-    <input type="text" name="title" id="title">
+    <div class="form-group py-2 m-2">
+      <label for="title">Title:</label>
+      <input type="text" name="title" id="title" class="form-control" required>
+    </div>
+    
     <!-- Froala Editor Container -->
     <div id="froala-editor"></div>
     <!-- Hidden input to store Froala's content -->
     <input type="hidden" id="contentInput" name="content">
-    <button type="submit">Save Draft</button>
+    <button type="submit" class="btn btn-primary my-2">Save Draft</button>
   </form>
+</div>
+ 
 
   <script>
     // Initialize Froala Editor and capture the content
@@ -52,5 +57,6 @@ if (isset($_GET['failed_blog']) && $_GET['failed_blog'] === 'true') {
       }
     });
   </script>
+  <?php include_once '../components/guest-footer.php' ?>
 </body>
 </html>

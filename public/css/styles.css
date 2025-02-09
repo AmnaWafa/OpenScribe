@@ -82,6 +82,10 @@ span {
     color: #495057;
 }
 
+.welcome-container{
+    background-color: #F9FAFB;
+}
+
 .welcome-message {
     background-color: #1E3A8A;
     color: #fff;

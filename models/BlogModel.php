@@ -1,9 +1,6 @@
 <?php
 // include_once '../../config.php';
 
-
-
-
 class BlogModel {
     private $mysqli;
 

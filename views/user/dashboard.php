@@ -6,9 +6,18 @@ include_once '../../models/BlogModel.php';
 session_start();
 
 $userId = $_SESSION['user_id'] ?? null;
+$userRole = $_SESSION['role'] ?? '';
 
 if (!$userId) {
     header('Location: ../guest/login.php');
+    exit;
+}
+if (!$userRole) {
+    header('Location: ../guest/login.php');
+    exit;
+}
+if ($userRole==='admin') {
+    header('Location: ../admin/dashboard.php');
     exit;
 }
 
@@ -27,14 +36,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['blog_id'])) {
 } 
 
 $userModel = new UserModel();
-$username = $userModel->getUserByUsername($userId); 
+$username = $userModel->getUsernameByUserID($userId); 
 $userBlogs = $userModel->getPublishedBlogs($username);
 $userDrafts = $userModel->getPendingBlogs($username);
 
 include_once '../../components/user-header.php';
 ?>
 <div class="dashboard-container">
-<div class="w-100 d-flex py-2 justify-content-between">
+<div class="w-100 d-flex py-2 justify-content-between welcome-container">
     <h2 class="">Welcome <?php echo htmlspecialchars($username);?>!</h2>  
     <a href="../../logic/write-blog.php"><button class="btn btn-primary">Write a blog</button></a>
 </div>

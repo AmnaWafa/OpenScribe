@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['blog_id'])) {
     <h1>Admin Dashboard</h1>
     <p>Welcome to the admin panel. Here you can manage blogs, and users.</p>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Total Blogs</h5>
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['blog_id'])) {
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Total Published Blogs</h5>
@@ -53,11 +53,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['blog_id'])) {
             </div>
         </div>
     </div>
-    <h2>Published Blogs</h2>
-    <div class="blog-container col-md-4">
+    <div class="mt-5">
+    <h2 class="text-center">Published Blogs</h2>
+    <div class="blog-container">
     <?php if (!empty($blogs) && is_array($blogs)): ?>
         <?php foreach ($blogs as $blog): ?>
-            <a href="../../logic/view-blog.php?id=<?php echo urlencode($blog['id']); ?>">
+            <a href="../../logic/view-blog.php?id=<?php echo urlencode($blog['id']); ?>" class="text-decoration-none">
             <div class="blog-card card card-body">
                 <p><?php echo htmlspecialchars($blog['username']); ?></p>
                 <h3 class="card-title"><?php echo nl2br(htmlspecialchars($blog['title'])); ?></h3>
@@ -73,6 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['blog_id'])) {
         <p>No blogs found.</p>
     <?php endif; ?>
 </div>
+    </div>
+   
 </div>
 <script>
         function confirmDelete() {

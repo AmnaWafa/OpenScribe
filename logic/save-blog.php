@@ -1,26 +1,20 @@
 <?php 
 include_once '../config.php';
+include_once '../models/UserModel.php';
 session_start();
 function redirect($url) {
     header("Location: $url");
     exit();
 }
+
 // Ensure the user is logged in
 $userId = $_SESSION['user_id'] ?? null;
 if (!$userId) {
     header('Location: ../guest/login.php');
     exit;
 }
-
-// Fetch the username from the database based on the user ID
-$query = "SELECT username FROM users WHERE id = ?";
-$stmt = $mysqli->prepare($query);
-$stmt->bind_param("i", $userId);
-$stmt->execute();
-$result = $stmt->get_result();
-$user = $result->fetch_assoc();
-$stmt->close();
-
+$userModel = new UserModel();
+$user = $userModel->getUserByUserID($userId);
 if (!$user) {
     echo "User not found.";
     exit;
