@@ -9,8 +9,8 @@
             WHERE username = '$username' ";
     $result = $mysqli->query($sql);
     if ($result->num_rows > 0) {
-        echo "User Enabled!!";
-    }
+        $_SESSION['message'] = "User Enabled!";
+        $_SESSION['message_type'] = "success";    }
     header('location: ../views/admin/manage-users.php');
 
 ?>

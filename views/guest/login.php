@@ -16,6 +16,7 @@
             exit;
         }
         $user_id = $userModel->getUserID($username);
+        $USER = $userModel->getUserByUserId($user_id);
         if($username==='admin' || $username==='Admin'){
             $role = 'admin'; 
             $user = $authModel->login($username, $password);
@@ -28,12 +29,24 @@
         else{
             $role = 'user'; 
             $user = $authModel->login($username, $password);
-            if($user){
-                $_SESSION['user_id'] = $user_id;
-                $_SESSION['role'] = $role;
+            if($USER['status']==='disabled'){
+                $_SESSION['message'] = "User is disabled by Admin. Try again later.";
+                $_SESSION['message_type'] = "error";
+                header('Location: login.php?error=User%Disabled');
 
-                header('Location:../user/dashboard.php');
-            }
+            }else{
+                if($user){
+                    $_SESSION['user_id'] = $user_id;
+                    $_SESSION['role'] = $role;
+                    header('Location:../user/dashboard.php');
+                }
+                else{
+                    $_SESSION['message'] = "Incorrect Password.";
+                    $_SESSION['message_type'] = "error";
+                    header('Location: login.php?error=Incorrect%Password');
+    
+                }
+            } 
          
         }
     }
@@ -52,6 +65,15 @@
             <button type="submit" class="btn btn-primary my-2">Login</button>
         </form>
     </div>
+    <?php if (isset($_SESSION['message'])): ?>
+    <script>
+        alert("<?php echo $_SESSION['message']; ?>");
+    </script>
+    <?php 
+        unset($_SESSION['message']);
+        unset($_SESSION['message_type']);
+    ?>
+<?php endif; ?>
     <?php
     include_once '../../components/guest-footer.php'; 
     ?>

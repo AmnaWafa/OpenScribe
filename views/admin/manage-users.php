@@ -55,6 +55,15 @@
         ?>
         </tbody>
     </table>
+    <?php if (isset($_SESSION['message'])): ?>
+    <script>
+        alert("<?php echo $_SESSION['message']; ?>");
+    </script>
+    <?php 
+        unset($_SESSION['message']);
+        unset($_SESSION['message_type']);
+    ?>
+<?php endif; ?>
     <?php     
     include_once '../../components/guest-footer.php';
 ?>

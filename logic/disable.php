@@ -13,7 +13,8 @@
             WHERE username = '$username' ";
         $result = $mysqli->query($sql);
         if ($result->num_rows > 0) {
-            echo "User Disabled!!";
+            $_SESSION['message'] = "User Disabled!";
+            $_SESSION['message_type'] = "success";
         }
     header('location: ../views/admin/manage-users.php');
 ?>

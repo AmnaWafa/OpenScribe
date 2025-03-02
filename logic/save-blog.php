@@ -9,8 +9,18 @@ function redirect($url) {
 
 // Ensure the user is logged in
 $userId = $_SESSION['user_id'] ?? null;
+$userRole = $_SESSION['role'] ?? '';
+
 if (!$userId) {
     header('Location: ../guest/login.php');
+    exit;
+}
+if (!$userRole) {
+    header('Location: ../guest/login.php');
+    exit;
+}
+if ($userRole==='admin') {
+    header('Location: ../admin/dashboard.php');
     exit;
 }
 $userModel = new UserModel();
